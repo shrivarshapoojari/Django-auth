@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - AuthSystem</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>Patient Dashboard</h1>
+        <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
+        <div class="nav-links">
+            <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-content">
+            <div class="role-badge patient">
+                Patient Account
+            </div>
+
+            <div class="profile-section">
+                <div class="profile-picture">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+                    {% else %}
+                        <div class="no-image">
+                            👤
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="profile-info">
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <p style="color: #7f8c8d; margin-bottom: 1rem;">Patient ID: #{{ user.id }}</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Username</label>
+                            <div class="value">{{ user.username }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Email Address</label>
+                            <div class="value">{{ user.email }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Role</label>
+                            <div class="value">{{ user.get_role_display }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Address</label>
+                            <div class="value">{{ user.address_line1 }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>City</label>
+                            <div class="value">{{ user.city }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>State</label>
+                            <div class="value">{{ user.state }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Pincode</label>
+                            <div class="value">{{ user.pincode }}</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Date Joined</label>
+                            <div class="value">{{ user.date_joined|date:"F d, Y" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color: #e8f6f3; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #27ae60; margin-top: 2rem;">
+                <h3 style="color: #27ae60; margin-bottom: 1rem;">Patient Portal Features</h3>
+                <ul style="color: #2c3e50; padding-left: 1.5rem;">
+                    <li>View and manage your appointments</li>
+                    <li>Access your medical records</li>
+                    <li>Communicate with your healthcare providers</li>
+                    <li>Update your personal information</li>
+                    <li>Request prescription refills</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

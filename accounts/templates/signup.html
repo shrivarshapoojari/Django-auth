@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AuthSystem</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="header">
+        <h1>AuthSystem - Sign Up</h1>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #2c3e50;">Create Your Account</h2>
+            
+            {% if form.errors %}
+                <div class="error-messages">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>
+                                    {% if field != '__all__' %}
+                                        <strong>{{ field|title }}:</strong> 
+                                    {% endif %}
+                                    {{ error }}
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Name Fields -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">First Name *</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">Last Name *</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <!-- Profile Picture -->
+                <div class="form-group">
+                    <label for="{{ form.profile_picture.id_for_label }}">Profile Picture</label>
+                    <div class="file-input-wrapper">
+                        {{ form.profile_picture }}
+                        <label for="{{ form.profile_picture.id_for_label }}" class="file-input-label">
+                            Choose Profile Picture (Optional)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Username and Email -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}">Username *</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Email *</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+
+                <!-- Password Fields -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.password1.id_for_label }}">Password *</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.password2.id_for_label }}">Confirm Password *</label>
+                        {{ form.password2 }}
+                    </div>
+                </div>
+
+                <!-- Address Fields -->
+                <div class="form-group">
+                    <label for="{{ form.address_line1.id_for_label }}">Address Line 1 *</label>
+                    {{ form.address_line1 }}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.city.id_for_label }}">City *</label>
+                        {{ form.city }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.state.id_for_label }}">State *</label>
+                        {{ form.state }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.pincode.id_for_label }}">Pincode *</label>
+                        {{ form.pincode }}
+                    </div>
+                </div>
+
+                <!-- User Type -->
+                <div class="form-group">
+                    <label>User Type *</label>
+                    <div class="radio-group">
+                        {{ form.role }}
+                    </div>
+                </div>
+
+                <div class="form-group" style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn">Create Account</button>
+                </div>
+            </form>
+
+            <div class="nav-links">
+                <p>Already have an account? <a href="{% url 'login' %}" class="btn btn-secondary">Login Here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
