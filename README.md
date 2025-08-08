@@ -25,7 +25,6 @@ A complete Django authentication system with role-based user management supporti
 - ✅ Media file handling for uploads
 - ✅ Responsive design with raw HTML/CSS
 - ✅ Form validation and error handling
-- ✅ Production-ready configuration
 
 ## 📋 Requirements
 
@@ -77,7 +76,7 @@ AuthSystem/
 ├── manage.py
 ├── requirements.txt
 ├── .gitignore
-├── DEPLOYMENT_GUIDE.md
+├── README.md
 ├── accounts/
 │   ├── models.py          # Custom User model
 │   ├── views.py           # Authentication views
@@ -127,24 +126,6 @@ AuthSystem/
 - Login required decorators on protected views
 - Unique email and username validation
 - Secure file upload handling
-
-## 🌐 Deployment
-
-### PythonAnywhere Deployment
-Detailed deployment instructions are available in `DEPLOYMENT_GUIDE.md`.
-
-Quick steps:
-1. Create PythonAnywhere account
-2. Upload project files
-3. Set up virtual environment
-4. Configure web app
-5. Update settings for production
-
-### Production Considerations
-- Set `DEBUG = False` in production
-- Update `ALLOWED_HOSTS` with your domain
-- Use environment variables for sensitive settings
-- Configure static and media file serving
 
 ## 📸 Screenshots
 
@@ -215,8 +196,8 @@ Created with ❤️ for healthcare authentication systems.
 
 If you encounter any issues or have questions:
 
-1. Check the `DEPLOYMENT_GUIDE.md` for deployment help
-2. Review the Django documentation
+1. Review the Django documentation
+2. Check the terminal for error messages
 3. Open an issue on GitHub
 
 ## 🔄 Version History
@@ -225,8 +206,8 @@ If you encounter any issues or have questions:
   - User registration and login
   - Role-based dashboards
   - Profile picture uploads
-  - Production-ready deployment configuration
+  - Local development ready
 
 ---
 
-**Note**: This is a demo application. For production use, ensure proper security auditing and testing.
+**Note**: This is a demo application designed for local development and learning purposes.

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Blog Post - AuthSystem</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>Edit Blog Post</h1>
+        <p>Update: {{ post.title }}</p>
+        <div class="nav-links">
+            <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %}
+                <div class="error-messages">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>
+                                    {% if field != '__all__' %}
+                                        <strong>{{ field|title }}:</strong> 
+                                    {% endif %}
+                                    {{ error }}
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Blog Title *</label>
+                    {{ form.title }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">Featured Image</label>
+                    {% if post.image %}
+                        <div class="current-image" style="margin-bottom: 1rem;">
+                            <p><strong>Current Image:</strong></p>
+                            <img src="{{ post.image.url }}" alt="Current blog image" style="max-width: 200px; height: auto; border-radius: 4px;">
+                        </div>
+                    {% endif %}
+                    <div class="file-input-wrapper">
+                        {{ form.image }}
+                        <label for="{{ form.image.id_for_label }}" class="file-input-label">
+                            {% if post.image %}Update Featured Image{% else %}Choose Featured Image{% endif %}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category *</label>
+                    {{ form.category }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.summary.id_for_label }}">Summary *</label>
+                    {{ form.summary }}
+                    <small class="form-text">Write a brief summary of your blog post (max 500 characters)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}">Blog Content *</label>
+                    {{ form.content }}
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-wrapper">
+                        {{ form.is_draft }}
+                        <label for="{{ form.is_draft.id_for_label }}">Save as draft (unpublished)</label>
+                    </div>
+                    <small class="form-text">Check this box to save as draft. Uncheck to publish.</small>
+                </div>
+
+                <div class="form-group" style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn">Update Blog Post</button>
+                    <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary" style="margin-left: 1rem;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

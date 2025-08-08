@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import CustomUser, BlogPost
 from django.core.exceptions import ValidationError
 
 # User Signup Form
@@ -67,3 +67,33 @@ class UserLoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
         label='Password'
     )
+
+
+# Blog Post Form for Doctors
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'image', 'category', 'summary', 'content', 'is_draft']
+        
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'placeholder': 'Enter blog post title',
+                'class': 'form-control'
+            }),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'summary': forms.Textarea(attrs={
+                'placeholder': 'Enter a brief summary of your blog post...',
+                'rows': 4,
+                'class': 'form-control'
+            }),
+            'content': forms.Textarea(attrs={
+                'placeholder': 'Write your full blog post content here...',
+                'rows': 10,
+                'class': 'form-control'
+            }),
+            'is_draft': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        
+        labels = {
+            'is_draft': 'Save as draft',
+        }

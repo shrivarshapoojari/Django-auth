@@ -127,7 +127,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-authsystem_venv/
 
 # Spyder project settings
 .spyderproject
@@ -167,9 +166,8 @@ cython_debug/
 *.log
 db.sqlite3
 db.sqlite3-journal
-media/
-staticfiles/
-static/
+media/uploads/
+# Keep media structure but exclude actual uploads
 
 # Secret settings
 secret_settings.py

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - AuthSystem Blog</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="header">
+        <h1>AuthSystem Blog</h1>
+    </div>
+
+    <div class="container">
+        <div class="nav-links" style="margin-bottom: 2rem;">
+            {% if user.role == 'PATIENT' %}
+                <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            {% else %}
+                <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+        </div>
+
+        <article class="blog-post">
+            <div class="blog-post-header">
+                {% if post.is_draft %}
+                    <div class="draft-badge">DRAFT</div>
+                {% endif %}
+                
+                <h1 class="blog-title">{{ post.title }}</h1>
+                
+                <div class="blog-meta">
+                    <span class="blog-category">{{ post.get_category_display }}</span>
+                    <span class="blog-author">By Dr. {{ post.author.first_name }} {{ post.author.last_name }}</span>
+                    <span class="blog-date">{{ post.created_at|date:"F d, Y" }}</span>
+                    {% if post.updated_at != post.created_at %}
+                        <span class="blog-updated">Updated: {{ post.updated_at|date:"F d, Y" }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if post.image %}
+                <div class="blog-image">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="featured-image">
+                </div>
+            {% endif %}
+
+            <div class="blog-summary">
+                <h3>Summary</h3>
+                <p>{{ post.summary }}</p>
+            </div>
+
+            <div class="blog-content">
+                <h3>Full Article</h3>
+                <div class="content-text">
+                    {{ post.content|linebreaks }}
+                </div>
+            </div>
+
+            {% if user.role == 'DOCTOR' and post.author == user %}
+                <div class="blog-actions" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
+                    <h4>Author Actions</h4>
+                    <a href="{% url 'edit_blog_post' post.id %}" class="btn">Edit Post</a>
+                </div>
+            {% endif %}
+        </article>
+    </div>
+</body>
+</html>

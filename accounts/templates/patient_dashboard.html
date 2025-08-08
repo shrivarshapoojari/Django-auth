@@ -91,6 +91,162 @@
                     <li>Request prescription refills</li>
                 </ul>
             </div>
+
+            <!-- Blog Posts Section -->
+            <div style="margin-top: 3rem;">
+                <h2 style="color: #2c3e50; margin-bottom: 2rem; text-align: center;">Health Blog Posts</h2>
+                
+                {% if posts_by_category %}
+                    {% for category_name, posts in posts_by_category.items %}
+                        {% if category_name == "Mental Health" %}
+                            {% with category_slug="mental-health" %}
+                                <div class="blog-category-section">
+                                    <h3 class="category-title">
+                                        {{ category_name }}
+                                        <a href="{% url 'blog_category' category_slug %}" class="view-all-link">View All</a>
+                                    </h3>
+                                    
+                                    {% if posts %}
+                                        <div class="blog-posts-preview">
+                                            {% for post in posts|slice:":3" %}
+                                                <div class="blog-post-preview">
+                                                    {% if post.image %}
+                                                        <div class="preview-image">
+                                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="preview-image no-image">📄</div>
+                                                    {% endif %}
+                                                    
+                                                    <div class="preview-content">
+                                                        <h4><a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a></h4>
+                                                        <p class="preview-summary">{{ post.get_truncated_summary }}</p>
+                                                        <div class="preview-meta">
+                                                            <small>By Dr. {{ post.author.first_name }} {{ post.author.last_name }} • {{ post.created_at|date:"M d, Y" }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p class="no-posts-message">No posts available in this category yet.</p>
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                        {% elif category_name == "Heart Disease" %}
+                            {% with category_slug="heart-disease" %}
+                                <div class="blog-category-section">
+                                    <h3 class="category-title">
+                                        {{ category_name }}
+                                        <a href="{% url 'blog_category' category_slug %}" class="view-all-link">View All</a>
+                                    </h3>
+                                    
+                                    {% if posts %}
+                                        <div class="blog-posts-preview">
+                                            {% for post in posts|slice:":3" %}
+                                                <div class="blog-post-preview">
+                                                    {% if post.image %}
+                                                        <div class="preview-image">
+                                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="preview-image no-image">📄</div>
+                                                    {% endif %}
+                                                    
+                                                    <div class="preview-content">
+                                                        <h4><a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a></h4>
+                                                        <p class="preview-summary">{{ post.get_truncated_summary }}</p>
+                                                        <div class="preview-meta">
+                                                            <small>By Dr. {{ post.author.first_name }} {{ post.author.last_name }} • {{ post.created_at|date:"M d, Y" }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p class="no-posts-message">No posts available in this category yet.</p>
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                        {% elif category_name == "Covid-19" %}
+                            {% with category_slug="covid-19" %}
+                                <div class="blog-category-section">
+                                    <h3 class="category-title">
+                                        {{ category_name }}
+                                        <a href="{% url 'blog_category' category_slug %}" class="view-all-link">View All</a>
+                                    </h3>
+                                    
+                                    {% if posts %}
+                                        <div class="blog-posts-preview">
+                                            {% for post in posts|slice:":3" %}
+                                                <div class="blog-post-preview">
+                                                    {% if post.image %}
+                                                        <div class="preview-image">
+                                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="preview-image no-image">📄</div>
+                                                    {% endif %}
+                                                    
+                                                    <div class="preview-content">
+                                                        <h4><a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a></h4>
+                                                        <p class="preview-summary">{{ post.get_truncated_summary }}</p>
+                                                        <div class="preview-meta">
+                                                            <small>By Dr. {{ post.author.first_name }} {{ post.author.last_name }} • {{ post.created_at|date:"M d, Y" }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p class="no-posts-message">No posts available in this category yet.</p>
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                        {% elif category_name == "Immunization" %}
+                            {% with category_slug="immunization" %}
+                                <div class="blog-category-section">
+                                    <h3 class="category-title">
+                                        {{ category_name }}
+                                        <a href="{% url 'blog_category' category_slug %}" class="view-all-link">View All</a>
+                                    </h3>
+                                    
+                                    {% if posts %}
+                                        <div class="blog-posts-preview">
+                                            {% for post in posts|slice:":3" %}
+                                                <div class="blog-post-preview">
+                                                    {% if post.image %}
+                                                        <div class="preview-image">
+                                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="preview-image no-image">📄</div>
+                                                    {% endif %}
+                                                    
+                                                    <div class="preview-content">
+                                                        <h4><a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a></h4>
+                                                        <p class="preview-summary">{{ post.get_truncated_summary }}</p>
+                                                        <div class="preview-meta">
+                                                            <small>By Dr. {{ post.author.first_name }} {{ post.author.last_name }} • {{ post.created_at|date:"M d, Y" }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p class="no-posts-message">No posts available in this category yet.</p>
+                                    {% endif %}
+                                </div>
+                            {% endwith %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="no-blog-posts">
+                        <h3>No blog posts available yet.</h3>
+                        <p>Our doctors will be sharing health insights soon. Check back later!</p>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </body>

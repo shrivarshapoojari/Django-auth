@@ -92,6 +92,55 @@
                     <li>Generate medical reports and summaries</li>
                 </ul>
             </div>
+
+            <!-- Blog Management Section -->
+            <div style="margin-top: 3rem;">
+                <div class="blog-management-header">
+                    <h2 style="color: #2c3e50; margin-bottom: 1rem;">Blog Management</h2>
+                    <a href="{% url 'create_blog_post' %}" class="btn" style="margin-bottom: 2rem;">Create New Blog Post</a>
+                </div>
+                
+                {% if doctor_posts %}
+                    <div class="doctor-posts-section">
+                        <h3>Your Blog Posts ({{ doctor_posts.count }})</h3>
+                        
+                        <div class="posts-table">
+                            {% for post in doctor_posts %}
+                                <div class="post-row">
+                                    <div class="post-info">
+                                        <h4>
+                                            <a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a>
+                                            {% if post.is_draft %}
+                                                <span class="draft-badge">DRAFT</span>
+                                            {% else %}
+                                                <span class="published-badge">PUBLISHED</span>
+                                            {% endif %}
+                                        </h4>
+                                        <div class="post-meta">
+                                            <span class="post-category">{{ post.get_category_display }}</span>
+                                            <span class="post-date">Created: {{ post.created_at|date:"M d, Y" }}</span>
+                                            {% if post.updated_at != post.created_at %}
+                                                <span class="post-updated">Updated: {{ post.updated_at|date:"M d, Y" }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <p class="post-summary-preview">{{ post.get_truncated_summary }}</p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a href="{% url 'view_blog_post' post.id %}" class="btn btn-secondary">View</a>
+                                        <a href="{% url 'edit_blog_post' post.id %}" class="btn">Edit</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="no-posts-doctor">
+                        <h3>You haven't created any blog posts yet.</h3>
+                        <p>Share your medical expertise with patients by creating your first blog post.</p>
+                        <a href="{% url 'create_blog_post' %}" class="btn" style="margin-top: 1rem;">Create Your First Blog Post</a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </body>

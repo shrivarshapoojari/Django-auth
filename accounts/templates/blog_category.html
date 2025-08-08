@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_name }} - Blog Category</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>{{ category_name }} Blog Posts</h1>
+        <p>Latest articles and insights</p>
+        <div class="nav-links">
+            <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="blog-category-content">
+            {% if posts %}
+                <div class="blog-posts-grid">
+                    {% for post in posts %}
+                        <div class="blog-post-card">
+                            {% if post.image %}
+                                <div class="post-image">
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                </div>
+                            {% else %}
+                                <div class="post-image no-image">
+                                    📄
+                                </div>
+                            {% endif %}
+                            
+                            <div class="post-content">
+                                <h3 class="post-title">
+                                    <a href="{% url 'view_blog_post' post.id %}">{{ post.title }}</a>
+                                </h3>
+                                
+                                <div class="post-meta">
+                                    <span class="post-author">Dr. {{ post.author.first_name }} {{ post.author.last_name }}</span>
+                                    <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                                </div>
+                                
+                                <p class="post-summary">{{ post.get_truncated_summary }}</p>
+                                
+                                <a href="{% url 'view_blog_post' post.id %}" class="read-more-btn">Read More</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-posts">
+                    <h3>No blog posts available in {{ category_name }} category yet.</h3>
+                    <p>Check back later for new articles from our doctors.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
